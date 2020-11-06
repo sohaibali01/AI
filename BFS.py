@@ -19,28 +19,41 @@ class Node:
                                # only output states of those actions 
         self.totalCost = totalCost
 
-def DFS():
-    initialState = 'D'
-    goalState = 'C'
+def BFS():
+    initialState = 'Arad'
+    goalState = 'Bucharest'
 
     # we think of a graph as a dictionary, items comprise of nodes, where
     # each node has a key and a value. Key is simply the state of the node
     # and value are actual attributes that node object
 
-    graph = {'A': Node('A', None, ['B', 'E', 'C'], None),
-             'B': Node('B', None, ['D', 'E', 'A'], None),
-             'C': Node('C', None, ['A', 'F', 'G'], None),
-             'D': Node('D', None, ['B', 'E'], None),
-             'E': Node('E', None, ['A', 'B','D'], None),
-             'F': Node('F', None, ['C'], None),
-             'G': Node('G', None, ['C'], None)}
+    graph = {'Arad': Node('Arad', None, ['Zerind', 'Timisoara', 'Sibiu'], None),
+             'Zerind': Node('Zerind', None, ['Oradea', 'Arad'], None),
+             'Oradea': Node('Oradea', None, ['Sibiu','Zerind'], None),
+             'Sibiu': Node('Sibiu', None, ['Fagaras', 'RimnicuVilcea','Oradea', 'Arad'], None),
+             'Timisoara': Node('Timisoara', None, ['Lugoj', 'Arad'], None),
+             'Lugoj': Node('Lugoj', None, ['Mehadia', 'Timisoara'], None),
+             'Mehadia': Node('Mehadia', None, ['Drobeta', 'Lugoj'], None),             
+             'Drobeta': Node('Drobeta', None, ['Craiova','Mehadia'], None),
+             'Craiova': Node('Craiova', None, ['RimnicuVilcea', 'Pitesti','Drobeta'], None),
+             'RimnicuVilcea': Node('RimnicuVilcea', None, ['Sibiu', 'Pitesti', 'Craiova'], None),            
+             'Fagaras': Node('Fagaras', None, ['Bucharest','Sibiu'], None),             
+             'Bucharest': Node('Bucharest', None, ['Giurgiu', 'Pitesti', 'Urziceni','Fagaras'], None),
+             'Giurgiu': Node('Giurgiu', None, ['Bucharest'], None),             
+             'Pitesti': Node('Pitesti', None, ['Craiova', 'RimnicuVilcea', 'Bucharest'], None),             
+             'Urziceni': Node('Urziceni', None, ['Hirsova', 'Vaslui','Bucharest'], None),             
+             'Hirsova': Node('Hirsova', None, ['Eforie','Urziceni'], None),             
+             'Eforie': Node('Eforie', None, ['Hirsova'], None),             
+             'Vaslui': Node('Vaslui', None, ['Iasi','Urziceni'], None),             
+             'Iasi': Node('Iasi', None, ['Neamt','Vaslui'], None),             
+             'Neamt': Node('Neamt', None, ['Iasi'], None) }
             
     frontier = [initialState]
     explored=[]
 
     while len(frontier)!=0:
         
-        currentNode = frontier.pop(len(frontier)-1)
+        currentNode = frontier.pop(0)
         
         explored.append(currentNode)
         #currentChildren=0
@@ -52,16 +65,20 @@ def DFS():
                     return actionSequence(graph, initialState, goalState)
                 #currentChildren=currentChildren+1
                 frontier.append(child)
-                print(currentNode)
-                print(child)
-                print(frontier)
-            print()
-        print()
+                #print(currentNode)
+                #print(child)
+                #print(frontier)
+            #print()
+        #print()
         #if currentChildren==0:
         #   del explored[len(explored)-1]
     
-solution = DFS()
+solution = BFS()
 print(solution)
+
+
+
+
 
 
 
